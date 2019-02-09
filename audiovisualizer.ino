@@ -21,6 +21,7 @@ unsigned long curMillis;
 unsigned long prevReplyToPCmillis = 0;
 unsigned long replyToPCinterval = 1000;
 int soundValue = 0;
+int numberOfLeds = 0;
 
 //=============
 
@@ -128,22 +129,39 @@ void replyToPC() {
 //=============
 
 void flashLEDs() {
+   float red = 0;
+   float green = 0;
+   float blue = 0;
 
-//  for (byte n = 0; n < numLEDs; n++) {
-//    if (curMillis - prevLEDmillis[n] >= LEDinterval[n]) {
-//       prevLEDmillis[n] += LEDinterval[n];
-//       digitalWrite( ledPin[n], ! digitalRead( ledPin[n]) );
-//    }
-//  }
-//   if( soundValue == 100) {
-//      digitalWrite(ledPin, HIGH);
-//   }
-//
-//   else if (soundValue == 200) {
-//      digitalWrite(ledPin, LOW);
-//   }
-   for(int i = 0; i < 16; i++) {
-      strip.setPixelColor(i,0,0,soundValue);
+   for(int i = 0; i < 16; i++) { // "black" color, resets leds
+        strip.setPixelColor(i,0,0,0);
+        strip.show();
+   }
+
+   if(soundValue < 100) {
+    red = 0;
+    green = 1;
+    blue = 0;
+   }
+   else if(soundValue >= 100 && soundValue <= 150) {
+    red = 1;
+    green = 1;
+    blue = 0;
+   }
+   else if(soundValue > 150 && soundValue <= 230) {
+    red = 1.1;
+    green = 0.2;
+    blue = 0;
+   }
+   else if(soundValue > 230) {
+    red = 1;
+    green = 0;
+    blue = 0;
+   }
+   
+   numberOfLeds = (soundValue*16)/255;
+   for(int i = 0; i < numberOfLeds; i++) {
+      strip.setPixelColor(i,red*soundValue,green*soundValue,blue*soundValue);
       strip.show();
    }
 

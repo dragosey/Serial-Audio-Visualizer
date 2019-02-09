@@ -74,8 +74,8 @@ def runTest(td):
 def analyzesound():
     waitingForReply = False
     chunk = 1024  # Change if too fast/slow, never less than 1024
-    scale = 50  # Change if too dim/bright
-    exponent = 6  # Change if too little/too much difference between loud and quiet sounds
+    scale = 4  # Change if too dim/bright
+    exponent = 1  # Change if too little/too much difference between loud and quiet sounds
 
     # CHANGE THIS TO CORRECT INPUT DEVICE
     # Enable stereo mixing in your sound card
